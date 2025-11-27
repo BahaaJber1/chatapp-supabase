@@ -1,30 +1,60 @@
 "use client";
 
-import React from "react";
-import Container from "../common/Container";
+import HomeImage from "@/assets/images/home-chatting.svg";
+import ImageContainer from "@/components/common/ImageContainer";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { Button } from "../ui/button";
 import { motion as m } from "motion/react";
-import Image from "next/image";
+import Link from "next/link";
+import Container from "../common/Container";
 
 const Home = () => {
+  const parentVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 2, type: "spring" } },
+  };
+
+  const spanVariants = {
+    hidden: { color: "#0f828c" },
+    visible: {
+      color: "#76153C",
+      transition: {
+        duration: 1.5,
+        repeat: Infinity,
+        repeatType: "reverse",
+        ease: "easeInOut",
+      },
+    },
+  };
+
+  const imageVariants = {
+    hidden: { y: -20 },
+    visible: {
+      y: 10,
+      transition: {
+        duration: 2,
+        repeat: Infinity,
+        repeatType: "reverse",
+        ease: "easeInOut",
+      },
+    },
+  };
+
   return (
-    <Container className={cn("mx-auto flex-col items-center md:flex-row")}>
-      <Container className={cn("")}>
+    <Container
+      variants={parentVariants}
+      initial="hidden"
+      animate="visible"
+      className={cn("mx-auto flex-col items-center gap-10 md:flex-row")}
+    >
+      <Container className={cn("justify-center gap-10")}>
         <h1 className={cn("text-6xl font-semibold")}>
           Awesome app for your modern{" "}
           <m.span
+            variants={spanVariants}
+            initial="hidden"
+            animate="visible"
             className={cn("font-bold")}
-            animate={{
-              color: ["#0f828c", "#76153C"],
-            }}
-            transition={{
-              repeat: Infinity,
-              duration: 1.5,
-              ease: "easeInOut",
-              repeatType: "reverse",
-            }}
           >
             lifestyle
           </m.span>
@@ -44,20 +74,12 @@ const Home = () => {
       </Container>
 
       <Container className={cn("items-center")}>
-        <Container
-          className={cn(
-            "relative h-[300px] w-[400px] lg:h-[400px] lg:w-[500px]",
-          )}
-          animate={{ y: [-20, 10] }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut",
-          }}
-        >
-          <Image src="/chatting3.svg" alt="Description" fill />
-        </Container>
+        <ImageContainer
+          src={HomeImage}
+          variants={imageVariants}
+          initial="hidden"
+          animate="visible"
+        />
       </Container>
     </Container>
   );

@@ -1,28 +1,46 @@
+import LoginImage from "@/assets/images/login-chatting.svg";
 import LoginForm from "@/components/auth/LoginForm";
 import Container from "@/components/common/Container";
+import ImageContainer from "@/components/common/ImageContainer";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 
-const page = () => {
+const Login = () => {
+  const parentVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { duration: 2, type: "spring" },
+    },
+  };
+
+  const imageVariants = {
+    float: {
+      y: [-20, 10],
+      rotate: [-2, 2],
+      transition: {
+        duration: 2,
+        repeat: Infinity,
+        repeatType: "reverse",
+        ease: "easeInOut",
+      },
+    },
+  };
+
   return (
     <Container
-      className={cn("max-w-7xl items-center justify-around md:flex-row")}
+      variants={parentVariants}
+      initial="hidden"
+      animate="visible"
+      className={cn("max-w-7xl items-center justify-around gap-10 md:flex-row")}
     >
       <LoginForm />
-      <Container
-        className={cn("relative h-[300px] w-[400px] lg:h-[400px] lg:w-[500px]")}
-        animate={{ y: [-20, 10], rotate: [-2, 2] }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
-        }}
-      >
-        <Image src="/chatting.svg" alt="Description" fill />
-      </Container>
+      <ImageContainer
+        src={LoginImage}
+        variants={imageVariants}
+        animate="float"
+      />
     </Container>
   );
 };
 
-export default page;
+export default Login;

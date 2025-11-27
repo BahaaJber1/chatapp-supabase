@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "../css/theme.css";
+@import "../assets/css/theme.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -133,4 +133,22 @@ input:-webkit-autofill:active {
   background-color: transparent !important;
   color: inherit !important;
   -webkit-text-fill-color: inherit !important;
+}
+
+@layer base {
+  * {
+    @apply scroll-pt-[100px] scroll-smooth outline-none;
+  }
+
+  *::-webkit-scrollbar {
+    @apply h-[5px] w-[5px] rounded-full bg-transparent md:w-1;
+  }
+
+  *::-webkit-scrollbar-track {
+    @apply rounded-full;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    @apply bg-rouge/50 rounded-full;
+  }
 }

@@ -1,12 +1,32 @@
 "use client";
 
+import { users } from "@/dev-data/users";
+import UserCard from "./UserCard";
 import Container from "../common/Container";
+import { cn } from "@/lib/utils";
+import { useParams } from "next/navigation";
 
-const ChatList = ({ tasks }) => {
+const ChatList = ({ isExpanded }) => {
+  const { username } = useParams();
+  const usersToDisplay = [...users];
+
+  if (usersToDisplay.length === 0) {
+    return (
+      <Container className="items-center rounded-lg bg-cyan-600 py-5">
+        No users available
+      </Container>
+    );
+  }
+
   return (
-    <Container className="mx-auto w-[80%] rounded-full bg-red-600 p-4">
-      {tasks?.map((task) => (
-        <p key={task.id}>{task.task}</p>
+    <Container className={cn("items-center overflow-y-auto px-3")}>
+      {usersToDisplay.map((user) => (
+        <UserCard
+          key={user.id}
+          user={user}
+          isSelected={user.name === username}
+          isExpanded={isExpanded}
+        />
       ))}
     </Container>
   );
