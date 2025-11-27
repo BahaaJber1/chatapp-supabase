@@ -1,6 +1,6 @@
-import z from "zod";
+const { default: z } = require("zod");
 
-export const loginSchema = z.object({
+export const SignupSchema = z.object({
   email: z.email().min(1, "Email is required"),
   password: z
     .string()
@@ -14,4 +14,12 @@ export const loginSchema = z.object({
     .refine((value) => /[!@#$%^&*(),.?":{}|<>]/.test(value), {
       message: "Password must contain at least one special character",
     }),
+  username: z
+    .string()
+    .min(1, "Username is required")
+    .max(15, "Username must be at most 15 characters long"),
+  fullName: z
+    .string()
+    .min(1, "Full name is required")
+    .max(20, "Full name must be at most 20 characters long"),
 });

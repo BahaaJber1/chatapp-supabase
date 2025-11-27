@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import Container from "../Container";
+import Container from "../common/Container";
 
 const ChatList = ({ tasks }) => {
   return (
@@ -11,6 +10,6 @@ const ChatList = ({ tasks }) => {
       ))}
     </Container>
   );
-}
+};
 
 export default ChatList;

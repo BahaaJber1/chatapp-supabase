@@ -121,3 +121,16 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Prevent autofill background color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition:
+    background-color 9999s ease-out,
+    color 9999s ease-out;
+  background-color: transparent !important;
+  color: inherit !important;
+  -webkit-text-fill-color: inherit !important;
+}

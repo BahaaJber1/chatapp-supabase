@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Container from "../Container";
+import Container from "../common/Container";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Button } from "../ui/button";
@@ -48,12 +48,19 @@ const Home = () => {
           className={cn(
             "relative h-[300px] w-[400px] lg:h-[400px] lg:w-[500px]",
           )}
+          animate={{ y: [-20, 10] }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut",
+          }}
         >
-          <Image src="/image.jpg" alt="Description" fill />
+          <Image src="/chatting3.svg" alt="Description" fill />
         </Container>
       </Container>
     </Container>
   );
-}
+};
 
 export default Home;
