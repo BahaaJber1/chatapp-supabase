@@ -1,5 +1,6 @@
 "use client";
 
+import { signup } from "@/actions/auth";
 import Container from "@/components/common/Container";
 import EmailInput from "@/components/common/EmailInput";
 import FormContainer from "@/components/common/FormContainer";
@@ -10,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { SignupSchema } from "@/zod/signup.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 function SignupForm() {
@@ -26,10 +28,14 @@ function SignupForm() {
   const { register, handleSubmit, formState, reset } = form;
   const { errors, isDirty, isValid, isSubmitting } = formState;
 
+  const router = useRouter();
+
   const onSubmit = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(data);
+    const result = await signup(data);
     reset();
+    if (result) {
+      router.push("/chats");
+    }
   };
 
   return (

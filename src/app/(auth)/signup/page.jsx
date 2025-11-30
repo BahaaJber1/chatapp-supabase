@@ -4,28 +4,28 @@ import Container from "@/components/common/Container";
 import ImageContainer from "@/components/common/ImageContainer";
 import { cn } from "@/lib/utils";
 
+const parentVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 2, type: "spring" },
+  },
+};
+
+const imageVariants = {
+  float: {
+    y: [-20, 10],
+    rotate: [-2, 2],
+    transition: {
+      duration: 2,
+      repeat: Infinity,
+      repeatType: "reverse",
+      ease: "easeInOut",
+    },
+  },
+};
+
 const Signup = () => {
-  const parentVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: 2, type: "spring" },
-    },
-  };
-
-  const imageVariants = {
-    float: {
-      y: [-20, 10],
-      rotate: [-2, 2],
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-        repeatType: "reverse",
-        ease: "easeInOut",
-      },
-    },
-  };
-
   return (
     <Container
       variants={parentVariants}

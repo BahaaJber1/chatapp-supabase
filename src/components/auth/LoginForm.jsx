@@ -1,15 +1,19 @@
 "use client";
 
+import { login } from "@/actions/auth";
 import Container from "@/components/common/Container";
 import EmailInput from "@/components/common/EmailInput";
 import FormContainer from "@/components/common/FormContainer";
 import PasswordInput from "@/components/common/PasswordInput";
 import SubmitButton from "@/components/common/SubmitButton";
 import { cn } from "@/lib/utils";
+import { setUser } from "@/store/slices/user.slice";
 import { loginSchema } from "@/zod/login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 const LoginForm = () => {
   const form = useForm({
@@ -23,10 +27,17 @@ const LoginForm = () => {
   const { register, handleSubmit, reset, formState } = form;
   const { isDirty, isSubmitting, errors, isValid } = formState;
 
+  const router = useRouter();
+  const dispatch = useDispatch();
+
   const onSubmit = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(data);
+    const result = await login(data);
+
     reset();
+    if (result) {
+      dispatch(setUser(result.user));
+      router.push("/chats");
+    }
   };
 
   return (

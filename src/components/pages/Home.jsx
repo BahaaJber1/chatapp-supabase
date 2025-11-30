@@ -7,38 +7,47 @@ import { cn } from "@/lib/utils";
 import { motion as m } from "motion/react";
 import Link from "next/link";
 import Container from "../common/Container";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getUser } from "@/store/slices/user.slice";
+
+const parentVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 2, type: "spring" } },
+};
+
+const spanVariants = {
+  hidden: { color: "#0f828c" },
+  visible: {
+    color: "#76153C",
+    transition: {
+      duration: 1.5,
+      repeat: Infinity,
+      repeatType: "reverse",
+      ease: "easeInOut",
+    },
+  },
+};
+
+const imageVariants = {
+  hidden: { y: -20 },
+  visible: {
+    y: 10,
+    transition: {
+      duration: 2,
+      repeat: Infinity,
+      repeatType: "reverse",
+      ease: "easeInOut",
+    },
+  },
+};
 
 const Home = () => {
-  const parentVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 2, type: "spring" } },
-  };
+  const dispatch = useDispatch();
 
-  const spanVariants = {
-    hidden: { color: "#0f828c" },
-    visible: {
-      color: "#76153C",
-      transition: {
-        duration: 1.5,
-        repeat: Infinity,
-        repeatType: "reverse",
-        ease: "easeInOut",
-      },
-    },
-  };
-
-  const imageVariants = {
-    hidden: { y: -20 },
-    visible: {
-      y: 10,
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-        repeatType: "reverse",
-        ease: "easeInOut",
-      },
-    },
-  };
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
 
   return (
     <Container
