@@ -7,7 +7,7 @@ import FormContainer from "@/components/common/FormContainer";
 import PasswordInput from "@/components/common/PasswordInput";
 import SubmitButton from "@/components/common/SubmitButton";
 import { cn } from "@/lib/utils";
-import { setUser } from "@/store/slices/user.slice";
+import { loginUser, setUser } from "@/store/slices/user.slice";
 import { loginSchema } from "@/zod/login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -31,11 +31,10 @@ const LoginForm = () => {
   const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
-    const result = await login(data);
+    const result = dispatch(loginUser(data));
 
     reset();
     if (result) {
-      dispatch(setUser(result.user));
       router.push("/chats");
     }
   };

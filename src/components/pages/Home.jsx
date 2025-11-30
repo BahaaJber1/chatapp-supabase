@@ -7,9 +7,6 @@ import { cn } from "@/lib/utils";
 import { motion as m } from "motion/react";
 import Link from "next/link";
 import Container from "../common/Container";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { getUser } from "@/store/slices/user.slice";
 
 const parentVariants = {
   hidden: { opacity: 0 },
@@ -43,12 +40,6 @@ const imageVariants = {
 };
 
 const Home = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getUser());
-  }, [dispatch]);
-
   return (
     <Container
       variants={parentVariants}

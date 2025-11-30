@@ -1,7 +1,10 @@
-import { supabase } from "@/lib/supabase";
+"use server";
+
+import { createClient } from "@/utils/supabase/server";
 
 export async function signup(formData) {
   const { email, password, username, fullName } = formData;
+  const supabase = await createClient();
   const { data, error } = await supabase.auth.signUp({
     email: email,
     password: password,
@@ -20,6 +23,7 @@ export async function signup(formData) {
 
 export async function login(formData) {
   const { email, password } = formData;
+  const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithPassword({
     email: email,
     password: password,
@@ -31,10 +35,13 @@ export async function login(formData) {
 }
 
 export async function getCurrentUser() {
-  const { data: session } = await supabase.auth.getSession();
+  const supabase = await createClient();
+  const { data: session, error: sessionError } =
+    await supabase.auth.getSession();
+
+  if (sessionError) throw new Error(sessionError.message);
 
   if (!session.session) return null;
-
   const { data, error } = await supabase.auth.getUser();
 
   if (error) throw new Error(error.message);
@@ -43,8 +50,12 @@ export async function getCurrentUser() {
 }
 
 export async function logout() {
-  const { error } = await supabase.auth.signOut();
-  localStorage.removeItem("sb-pdhxpsxqoljhosqkmrrk-auth-token");
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+  if (user) await supabase.auth.signOut();
 
   if (error) throw new Error(error.message);
 }

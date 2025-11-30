@@ -34,7 +34,8 @@ function SignupForm() {
     const result = await signup(data);
     reset();
     if (result) {
-      router.push("/chats");
+      
+      router.push("/login");
     }
   };
 

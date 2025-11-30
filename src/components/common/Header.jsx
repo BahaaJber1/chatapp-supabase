@@ -25,9 +25,11 @@ const Header = ({ className }) => {
   const router = useRouter();
   const { username } = user?.user_metadata || "";
 
-  const logoutUserHandler = () => {
-    dispatch(logoutUser());
-    router.push("/");
+  const logoutUserHandler = async () => {
+    const result = dispatch(logoutUser()); //.unwarp(); read more on it
+    if (result && !loading) {
+      router.push("/");
+    }
   };
 
   return (
